@@ -163,17 +163,18 @@ public class Localizer implements EstimatorInterface {
         int nbrDPoints = rows * cols * head;
         dPoints = new DPoint[nbrDPoints];
         dPointProbabilities = new double[nbrDPoints];
-
-        for (int i = 0; i < rows * cols; i++) {
-            Point p = new Point(i / cols, i % cols);
-            for (int j = 0; j < 4; j++) {
-                DPoint dp = new DPoint(p, j);
-                int index = i * 4 + j;
-                dPoints[index] = dp;
-                dPointProbabilities[index] = 1.0 / nbrDPoints;
-
+        int count= 0;
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                for (int h = 0; h < head; h++) {
+                    DPoint dp = new DPoint(new Point(i,j), h);
+                    dPoints[count] = dp;
+                    dPointProbabilities[count] = 1.0 / nbrDPoints;
+                    count ++;
+                }
             }
         }
+
 
     }
 
